@@ -1,1 +1,0 @@
-# class for a full game set

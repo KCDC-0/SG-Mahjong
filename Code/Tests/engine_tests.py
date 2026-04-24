@@ -1,9 +1,14 @@
 ## Used for testing the core engine
 
-from Engine.Tile import Tile, Special_tile
+# from Engine.Tile import Tile, Special_tile
+
+import sys
+sys.path.append('../Engine')
+from Tile import Tile, Special_tile
+from Table import Table
 
 def test_add_tile():
-    'test if tiles and special tiles work and can be tested for validity'
+    '''test if tiles and special tiles work and can be tested for validity'''
 
     temp_hand = []  # temporary hand, before implementation of hand class
     temp_hand.append(Tile("bamboo", 3, 'suited'))
@@ -16,3 +21,16 @@ def test_add_tile():
     for tile in temp_hand:
         if tile.valid_tile == True:
             print(tile)
+
+def test_set_table():
+    '''test if a full table can be set up and tiles can be dealt'''
+    table1 = Table('1')
+    table1.setup()
+    table1.shuffle()
+    print(table1)
+    table1.draw()
+    print(table1)
+    table1.deal(5)
+    print(table1)
+
+
