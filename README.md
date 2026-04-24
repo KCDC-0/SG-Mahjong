@@ -79,6 +79,7 @@ tests - Unit tests
 - Heuristic-based AI
 - Hand evaluation
 - Monte Carlo simulation
+- Hidden Markov Model 
 
 ### 5: (Optional)
 - Web interface
