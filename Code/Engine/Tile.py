@@ -15,7 +15,7 @@ class Tile:
     trait: str
 
     def __str__(self):
-        if self.rank != None:
+        if self.rank != 0:
             return f"{self.suit}-{self.rank}"
         else:
             return f"{self.suit}-{self.trait}"

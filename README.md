@@ -53,7 +53,9 @@ tests - Unit tests
 
 ## Current Features (tracking purposes)
 
-- [WIP] Tile and hand representation
+- Tile and table representation
+- Tile encoding and table set-up
+- [WIP] hand representation
 
 
 

@@ -6,6 +6,7 @@ import sys
 sys.path.append('../Engine')
 from Tile import Tile, Special_tile
 from Table import Table
+import utils
 
 def test_add_tile():
     '''test if tiles and special tiles work and can be tested for validity'''
@@ -33,4 +34,12 @@ def test_set_table():
     table1.deal(5)
     print(table1)
 
+def test_array():
+    '''test if a table can be reprented by an array'''
+    table1 = Table('1')
+    table1.setup()
+    table1.shuffle()
+    table1.draw()
+    table1.deal(5)
+    return utils.tile_array(table1.tiles)
 
