@@ -7,13 +7,33 @@ class Player:
     def __init__(self, name: str):
         self.name = name
         self.discards = []
+        self.direction: str
         self.hand = Hand()
         self.cash = 0
 
     def __str__(self):
-        return f"Player({self.name}): ${self.cash}"
+        return f"Player({self.name}): {self.direction}, ${self.cash}"
 
+    def set_direction(self, dir: str):
+        '''Sets a table direction for a player'''
+        if dir in ['North', 'South', "East", 'West']:
+            self.direction = dir
+        else: return False
+
+    def set_tiles(self, tiles: list):
+        '''Draws tiles and adds it to hand, used for start of game'''
+        if self.hand.tile_hidden_count == 0:
+            self.hand.add_tiles(tiles)
+        else:
+            return False
+    
+    def end_play(self):
+        '''Resets the players hand, used for ending a game'''
+        self.discards = []
+        self.hand.empty_hand()
+    
     def draw_tile(self, tile: Tile):
+        '''Draws a chosen tile and adds it to hand'''
         self.hand.add_tile(tile)
 
     def discard_tile(self, tile: Tile):

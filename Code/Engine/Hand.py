@@ -15,6 +15,12 @@ class Hand:
             ret_2 = ret_2 + temp + '\n'
         ret_3 = ", ".join(str(t) for t in self.special)
         return ret_1 + '\n' + ret_2 + '\n' + ret_3
+    
+    def empty_hand(self):
+        '''Removes all tiles in hand, used to reset hand between games'''
+        self.tiles = []
+        self.melds = []
+        self.special = []
 
     def add_tiles(self, tile_list: list):
         '''Adds a given list of tiles to the hand'''
@@ -32,8 +38,8 @@ class Hand:
             self.tiles.append(tile)
 
     def discard_tile(self, tile: Tile):
-        '''Pops a given tile from the hand'''
-        self.tiles.pop(tile)
+        '''Removes a given tile from the hand'''
+        self.tiles.remove(tile)
 
     def sort(self):
         '''Sorts hidden tiles in the hand'''
