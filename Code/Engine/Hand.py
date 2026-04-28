@@ -9,28 +9,31 @@ class Hand:
 
     def __str__(self):
         ret_1 = ", ".join(str(t) for t in self.tiles)
-        ret_2 = ", ".join(str(t) for t in self.melds)
+        ret_2 = ""
+        for m in self.melds:
+            temp = ", ".join(str(t) for t in m)
+            ret_2 = ret_2 + temp + '\n'
         ret_3 = ", ".join(str(t) for t in self.special)
         return ret_1 + '\n' + ret_2 + '\n' + ret_3
 
     def add_tiles(self, tile_list: list):
         '''Adds a given list of tiles to the hand'''
         for tile in tile_list:
-            if tile.suit == 'special':
+            if tile.trait == 'special':
                 self.special.append(tile)
             else:
                 self.tiles.append(tile)
 
     def add_tile(self, tile: Tile):
         '''Adds a given tile to the hand'''
-        if tile.suit == 'special':
+        if tile.trait == 'special':
             self.special.append(tile)
         else:
             self.tiles.append(tile)
 
-    def remove_tile(self, tile: Tile):
-        '''Removes a given tile from the hand'''
-        self.tiles.remove(tile)
+    def discard_tile(self, tile: Tile):
+        '''Pops a given tile from the hand'''
+        self.tiles.pop(tile)
 
     def sort(self):
         '''Sorts hidden tiles in the hand'''
@@ -39,7 +42,7 @@ class Hand:
     def add_meld(self, tile_list: list):
         '''Forms 1 meld of tiles given the tiles in the meld'''
         for tile in tile_list:
-            assert tile in self.tiles
+            assert tile in self.tiles, "Tiles listed not in hand"
             self.tiles.remove(tile)
         self.melds.append(tile_list)
 

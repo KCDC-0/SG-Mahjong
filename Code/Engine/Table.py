@@ -10,6 +10,7 @@ class Table:
     def __init__(self, name: str):
         self.name = name
         self.tiles = []
+        self.last_tile = None
 
     def __str__(self):
         return f"Table {self.name} with {len(self.tiles)} tiles remaining."
@@ -48,6 +49,9 @@ class Table:
         for i in range(num):
             tile_list.append(self.tiles.pop())
         return tile_list
+    
+    def add_last_tile(self, tile: Tile):
+        self.last_tile = tile
 
     @property
     def tiles_remaining(self):

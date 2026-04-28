@@ -37,6 +37,8 @@ tile_encoder = {'bamboo-1': 0,
  'wind-north': 32,
  'wind-south': 33}
 
+tile_decoder = {tile_encoder[key]: key for key in tile_encoder.keys()}
+
 
 def tile_array(tile_list):
     '''Converts a list of tiles into an array for tracking and sending

@@ -62,8 +62,8 @@ tests - Unit tests
 
 ## Features to be added
 ### 1: Core Engine
-- Tile, Wall, Hand classes [WIP]
-- Draw-discard loop
+- Tile, Wall, Hand classes [Done]
+- Draw-discard loop [Done]
 - Turn-based game loop
 
 ### 2: Game Logic

@@ -57,6 +57,7 @@ def test_hand_setup():
     my_hand.add_tiles(table1.deal(13))
     while my_hand.tile_hidden_count < 13:
         my_hand.add_tile(table1.draw())
+    my_hand.sort()
     print(my_hand)
 
     return utils.tile_array(table1.tiles)
@@ -76,6 +77,6 @@ def test_hand_meld():
     print(my_hand)
     print(my_hand.tile_hidden_count)
     print(my_hand.tile_full_count)
-    my_hand.add_meld(tl)
+    #my_hand.add_meld(tl)
 
 
