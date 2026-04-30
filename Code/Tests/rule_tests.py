@@ -3,6 +3,7 @@
 import sys
 sys.path.append('../Rules')
 import Control as c
+import win_detection as w
 sys.path.append('../Engine')
 from Tile import Tile, Special_tile
 from Table import Table
@@ -25,3 +26,16 @@ def test_game_set():
     for p in game1.players:
         print(p.hand)
     return utils.tile_array(game1.table.tiles), game1.pile_array()
+
+def test_win_detection():
+    '''Used to test the win detection function'''
+    winner = [1, 1, 2, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+         0, 0, 0, 0, 3, 0, 0, 3, 0, 0, 0, 0]
+    loser = [1, 1, 1, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+         0, 0, 0, 0, 0, 2, 1, 1, 0, 0, 0, 0]
+    winner_13 = [1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0,
+         0, 0, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1]
+    
+    return w.is_win(winner), w.is_win(loser), w.is_win(winner_13)
+
+

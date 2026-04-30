@@ -1,6 +1,10 @@
 ## The logic control that enforces rules
+# Game engine class
+# Reactions class
 
 import sys
+sys.path.append('../Rules')
+import win_detection as w
 sys.path.append('../Engine')
 from Tile import Tile, Special_tile
 from Table import Table
@@ -15,6 +19,7 @@ class GameEngine:
         self.table.setup()
         self.table.shuffle()
         self.pile = []
+        self.reactions = []
         self.current_player_index = 0
         self.current_dealer_index = 0
         self.game_over = False
@@ -67,7 +72,7 @@ class GameEngine:
 
         player.draw_tile(drawn_tile)
 
-        # Check win (to be added)
+        # Check win
         if self.check_win(player):
             self.winners.append(player)
             self.game_over = True
@@ -85,8 +90,8 @@ class GameEngine:
 
     def check_win(self, player) -> bool:
         """Check if a player had won"""
-        # To be added
-        return False
+
+        return w.is_win(utils.tile_array(player.hand.tiles))
     
     def pile_array(self):
         """Returns an array of tiles in the pile"""

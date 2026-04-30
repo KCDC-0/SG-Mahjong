@@ -55,7 +55,10 @@ tests - Unit tests
 
 - Tile and table representation
 - Tile encoding and table set-up
-- [WIP] hand representation
+- Hand and player representation
+- Gameplay loop
+- Winning hand detection
+- [WIP] Playing Reactions
 
 
 
@@ -64,15 +67,15 @@ tests - Unit tests
 ### 1: Core Engine
 - Tile, Wall, Hand classes [Done]
 - Draw-discard loop [Done]
-- Turn-based game loop
+- Turn-based game loop [Done]
 
 ### 2: Game Logic
 - Valid move detection
 - Dealing and playing functions
-- Winning hand detection
+- Winning hand detection [Done]
 
 ### 3: Scoring
-- Win detection algorithm
+- Win detection algorithm [Done]
 - Singapore Mahjong scoring system
 - Hand and set calculation
 
