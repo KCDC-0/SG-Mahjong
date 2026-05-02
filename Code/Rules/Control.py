@@ -88,6 +88,42 @@ class GameEngine:
         # Next player
         self.current_player_index = (self.current_player_index + 1) % 4
 
+    def get_valid_reactions(self, player_index, tile):
+        '''Returns a list of valid reactions for a player'''
+
+        actions = []
+        player = self.players[player_index]
+
+        # to be implemented
+        if self.can_win(player, tile):
+            actions.append("mahjong")
+
+        if self.can_pong(player, tile):
+            actions.append("pong")
+
+        if self.can_kong(player, tile):
+            actions.append("kong")
+
+        # chow only for next player
+        if self.can_chow(player, tile):
+            actions.append("kong")
+
+        return actions
+    
+    def handle_pong(self, player, tile):
+        # to implement
+        pass
+
+
+    def handle_chow(self, player, tile):
+        # to implement
+        pass
+
+
+    def handle_kong(self, player, tile):
+        # to implement
+        pass
+
     def check_win(self, player) -> bool:
         """Check if a player had won"""
 
