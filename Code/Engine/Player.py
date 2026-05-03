@@ -4,8 +4,9 @@ from Hand import Hand
 from Tile import Tile
 
 class Player:
-    def __init__(self, name: str):
+    def __init__(self, name: str, hum = True):
         self.name = name
+        self.human = hum
         self.discards = []
         self.direction: str
         self.hand = Hand()

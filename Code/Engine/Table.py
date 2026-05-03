@@ -19,6 +19,7 @@ class Table:
         '''Sets up the table with a full set of tiles.'''
 
         self.tiles = []
+        self.last_tile = None
         for suit in Tile.types['suit']:
             if suit in ['dot', 'bamboo', 'character']:
                 for rank in range(1, 10):

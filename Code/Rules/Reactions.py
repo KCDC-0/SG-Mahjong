@@ -1,10 +1,9 @@
 # engine/reaction.py
 
 class Reaction:
-    def __init__(self, player_index, action, tile):
+    def __init__(self, player_index, action):
         self.player_index = player_index
         self.action = action 
-        self.tile = tile
 
     def priority(self):
         priorities = {
