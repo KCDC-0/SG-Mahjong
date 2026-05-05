@@ -10,7 +10,10 @@ class Reaction:
             "mahjong": 3,
             "kong": 2,
             "pong": 2,
-            "chow": 1,
+            "mchow": 1,
+            "uchow": 1,
+            "dchow": 1,
+            "chow": 1
         }
         return priorities[self.action]
     

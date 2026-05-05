@@ -102,7 +102,7 @@ class GameEngine:
             # Reactions
             for i, other_player in enumerate(self.players):
                 if other_player != player and other_player.human:
-                    possibilties = self.get_valid_reactions(player, self.table.last_tile)
+                    possibilties = self.get_valid_reactions(i, self.table.last_tile)
                     print(possibilties)
                     if len(possibilties) == 0:
                         print(f'No valid reactions for {other_player.direction} player')
@@ -160,7 +160,7 @@ class GameEngine:
         player = self.players[reaction.player_index]
         tile = reaction.tile
 
-        if reaction.action == "hu":
+        if reaction.action == "mahjong":
             self.state.winner = player
             self.state.game_over = True
             return
@@ -171,37 +171,50 @@ class GameEngine:
         elif reaction.action == "kong":
             player.make_meld([self.table.last_tile] * 4)
 
-        elif reaction.action == "chow":
-            # to implement
-            a = 1
+        elif "chow" in reaction.action:
+            if reaction.action == "uchow":
+                t1 = Tile(self.table.last_tile.suit, self.table.last_tile.rank + 1, self.table.last_tile.trait)
+                t2 = Tile(self.table.last_tile.suit, self.table.last_tile.rank + 2, self.table.last_tile.trait)
+                player.make_meld([self.table.last_tile, t1, t2])
+            elif reaction.action == "mchow":
+                t1 = Tile(self.table.last_tile.suit, self.table.last_tile.rank - 1, self.table.last_tile.trait)
+                t2 = Tile(self.table.last_tile.suit, self.table.last_tile.rank + 1, self.table.last_tile.trait)
+                player.make_meld([self.table.last_tile, t1, t2])
+            elif reaction.action == "dchow":
+                t1 = Tile(self.table.last_tile.suit, self.table.last_tile.rank - 1, self.table.last_tile.trait)
+                t2 = Tile(self.table.last_tile.suit, self.table.last_tile.rank - 2, self.table.last_tile.trait)
+                player.make_meld([self.table.last_tile, t1, t2])
         
         self.reaction_phase = False
         self.current_player_index = reaction.player_index
 
-    def get_valid_reactions(self, player, tile):
+    def get_valid_reactions(self, p_index, tile):
         '''Returns a list of valid reactions for a player'''
 
         actions = []
+        player = self.state.players[p_index]
+        vec = utils.tile_array(player.hand)
+        t_index = utils.tile_index(tile)
 
-        # to be implemented
-        if self.can_win(player, tile):
+        if self.can_win(vec, t_index):
             actions.append("mahjong")
 
-        if self.can_pong(player, tile):
+        if self.can_pong(vec, t_index):
             actions.append("pong")
 
-        if self.can_kong(player, tile):
+        if self.can_kong(vec, t_index):
             actions.append("kong")
 
         # chow only for next player
-        if self.can_down_chow(player, tile):
-            actions.append("dchow")
+        if (p_index - self.current_player_index) % 4 == 1:
+            if self.can_down_chow(vec, t_index):
+                actions.append("dchow")
 
-        if self.can_middle_chow(player, tile):
-            actions.append("mchow")
+            if self.can_middle_chow(vec, t_index):
+                actions.append("mchow")
 
-        if self.can_up_chow(player, tile):
-            actions.append("uchow")
+            if self.can_up_chow(vec, t_index):
+                actions.append("uchow")
 
         return actions
     
@@ -210,31 +223,32 @@ class GameEngine:
 
 
 
-    def can_pong(self, player, tile):
-        # to implement
-        pass
+    def can_pong(self, vec, tile_idx):
+        return vec[tile_idx] >= 2
 
+    def can_down_chow(self, vec, tile_idx):
+        if tile_idx < 27 and (tile_idx % 9) >= 2:
+            if vec[tile_idx - 1] > 0 and vec[tile_idx - 2] > 0:
+                return True
+        return False
 
-    def can_down_chow(self, player, tile):
-        # to implement
-        pass
+    def can_middle_chow(self, vec, tile_idx):
+        if tile_idx < 27 and 1 <= (tile_idx % 9) <= 7:
+            if vec[tile_idx + 1] > 0 and vec[tile_idx - 1] > 0:
+                return True
+        return False
 
-    def can_middle_chow(self, player, tile):
-        # to implement
-        pass
+    def can_up_chow(self, vec, tile_idx):
+        if tile_idx < 27 and (tile_idx % 9) <= 6:
+            if vec[tile_idx + 1] > 0 and vec[tile_idx + 2] > 0:
+                return True
+        return False
 
-    def can_up_chow(self, player, tile):
-        # to implement
-        pass
-
-
-    def can_kong(self, player, tile):
-        # to implement
-        pass
+    def can_kong(self, vec, tile_idx):
+        return vec[tile_idx] >= 3
 
     def check_win(self, player) -> bool:
         """Check if a player had won"""
-
         return w.is_win(utils.tile_array(player.hand.tiles))
     
     def pile_array(self):
