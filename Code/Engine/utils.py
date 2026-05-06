@@ -57,7 +57,7 @@ def tile_array(tile_list):
             array[tile_encoder[str(tile)]] += 1
         else:
             pile.append(str(tile))
-    return array, pile
+    return array
 
 
 def tile_index(tile):

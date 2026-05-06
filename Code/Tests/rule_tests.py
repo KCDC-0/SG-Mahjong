@@ -12,7 +12,7 @@ from Player import Player
 import utils
 
 def test_game_set():
-    '''Used to test a complete game setup and play 1 round'''
+    '''Used to test a complete game setup and play 1 turn'''
     table1 = Table('1')
     players = []
     for i in range(1, 5):
@@ -37,5 +37,24 @@ def test_win_detection():
          0, 0, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1]
     
     return w.is_win(winner), w.is_win(loser), w.is_win(winner_13)
+
+def test_play_round():
+    '''Used to test dealing, reactions and 1 round of play'''
+    table1 = Table('1')
+    players = []
+    for i in range(1, 5):
+        p = Player(str(i))
+        players.append(p)
+        p.add_cash(50)
+    game1 = c.GameEngine(players, table1)
+    game1.start_game()
+    game1.play_human_turn()
+    game1.play_human_turn()
+    game1.play_human_turn()
+    game1.play_human_turn()
+
+def test_full_game():
+    '''Used to test 1 full human game'''
+    # to be added
 
 

@@ -58,7 +58,11 @@ tests - Unit tests
 - Hand and player representation
 - Gameplay loop
 - Winning hand detection
-- [WIP] Playing Reactions
+- Playing Reactions
+- Valid move detection
+- Dealing and reaction loop
+- Human input for discarding
+- [WIP] full game playthrough
 
 
 
@@ -70,8 +74,8 @@ tests - Unit tests
 - Turn-based game loop [Done]
 
 ### 2: Game Logic
-- Valid move detection
-- Dealing and playing functions
+- Valid move detection [Done]
+- Dealing and playing functions [Done]
 - Winning hand detection [Done]
 
 ### 3: Scoring
@@ -87,6 +91,7 @@ tests - Unit tests
 - Hidden Markov Model 
 
 ### 5: (Optional)
+- CLI/visual interface
 - Web interface
 - Multiplayer support
 - Game replay and logging system

@@ -55,6 +55,7 @@ def is_win(vec):
     '''Checks hand for a win, used for hidden tiles'''
 
     for i in range(34):
+        #print(vec[i])
         if vec[i] >= 2:
             vec[i] -= 2 
 

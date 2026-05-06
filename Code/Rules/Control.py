@@ -72,7 +72,7 @@ class GameEngine:
         """Plays one players full turn"""
         player = self.players[self.current_player_index]
 
-        self.draw_stage(self, player)
+        self.draw_stage(player)
 
         if self.game_over:
             return
@@ -80,6 +80,7 @@ class GameEngine:
         # Display tiles in hand (to add)
         
         # ask for user input for discard
+        print(player.hand)
         while player.hand.tile_full_count > 13:
             if player.human:
                 t_num = 0
@@ -97,12 +98,14 @@ class GameEngine:
             else:
                 t_num = 1
 
-            self.discard_stage(self, player, t_num)
+            self.discard_stage(player, t_num)
 
             # Reactions
             for i, other_player in enumerate(self.players):
                 if other_player != player and other_player.human:
                     possibilties = self.get_valid_reactions(i, self.table.last_tile)
+                    print(other_player.hand)
+                    #print(utils.tile_array(other_player.hand.tiles))
                     print(possibilties)
                     if len(possibilties) == 0:
                         print(f'No valid reactions for {other_player.direction} player')
@@ -143,6 +146,7 @@ class GameEngine:
     def discard_stage(self, player, tile_num):
         tile_to_discard = player.hand.tiles[tile_num - 1]
         player.discard_tile(tile_to_discard)
+        self.table.last_tile = tile_to_discard
         self.pile.append(tile_to_discard)
     
     def reaction_stage(self):
@@ -158,11 +162,11 @@ class GameEngine:
         
     def apply_reaction(self, reaction):
         player = self.players[reaction.player_index]
-        tile = reaction.tile
+        tile = self.table.last_tile
 
         if reaction.action == "mahjong":
-            self.state.winner = player
-            self.state.game_over = True
+            self.winner = player
+            self.game_over = True
             return
 
         elif reaction.action == "pong":
@@ -192,8 +196,8 @@ class GameEngine:
         '''Returns a list of valid reactions for a player'''
 
         actions = []
-        player = self.state.players[p_index]
-        vec = utils.tile_array(player.hand)
+        player = self.players[p_index]
+        vec = utils.tile_array(player.hand.tiles)
         t_index = utils.tile_index(tile)
 
         if self.can_win(vec, t_index):
@@ -243,6 +247,13 @@ class GameEngine:
             if vec[tile_idx + 1] > 0 and vec[tile_idx + 2] > 0:
                 return True
         return False
+    
+    def can_win(self, vec, tile_idx):
+        new_vec = vec
+        new_vec[tile_idx] += 1
+        status = w.is_win(new_vec)
+        new_vec[tile_idx] -= 1
+        return status
 
     def can_kong(self, vec, tile_idx):
         return vec[tile_idx] >= 3
