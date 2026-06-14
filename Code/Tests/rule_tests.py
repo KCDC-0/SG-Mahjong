@@ -56,5 +56,12 @@ def test_play_round():
 def test_full_game():
     '''Used to test 1 full human game'''
     # to be added
+    table1 = Table('1')
+    players = []
+    for i in range(1, 5):
+        p = Player(str(i))
+        players.append(p)
+        p.add_cash(50)
+    game1 = c.GameEngine(players, table1)
 
 
